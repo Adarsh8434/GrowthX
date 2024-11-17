@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Assignment</title>
+</head>
+<body>
+    <h2>Upload Assignment</h2>
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <form action="/assignment/upload" method="post">
+        <!-- Hidden input to automatically include user's email -->
+        <input type="hidden" id="userEmail" name="userEmail" th:value="${userEmail}">
+        
+        <label for="taskDescription">Task Description:</label>
+        <textarea id="taskDescription" name="taskDescription" required></textarea><br>
+        
+        <label for="adminEmail">Assign to Admin:</label>
+        <select id="adminEmail" name="adminEmail" required>
+            <option value="">Select an admin</option>
+            <!-- Thymeleaf code to populate the list of admins -->
+            <th:block th:each="admin : ${adminList}">
+                <option th:value="${admin.email}" th:text="${admin.name}"></option>
+            </th:block>
+        </select><br>
+        
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

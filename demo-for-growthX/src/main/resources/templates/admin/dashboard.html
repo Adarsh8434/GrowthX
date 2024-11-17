@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Admin Dashboard</h2>
+
+        <!-- Display Message -->
+        <div th:if="${message}" class="alert alert-success text-center" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <h3 class="mt-4">Assignments</h3>
+
+        <!-- Assignments Table -->
+        <div class="table-responsive" th:if="${assignments != null}">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Upload Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="assignment : ${assignments}">
+                        <td th:text="${assignment.assignmentId}"></td>
+                        <td th:text="${assignment.taskDescription}"></td>
+                       
+
+                        <td th:text="${assignment.status}"></td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <form th:action="@{/admin/assignments/{id}/accept(id=${assignment.assignmentId})}" method="post" class="mr-1">
+                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                </form>
+                                <form th:action="@{/admin/assignments/{id}/reject(id=${assignment.assignmentId})}" method="post" class="ml-1">
+                                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
